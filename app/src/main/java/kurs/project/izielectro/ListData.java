@@ -1,15 +1,15 @@
 package kurs.project.izielectro;
 
 public class ListData {
-    String name,time;
-    int ingredients,desc;
-    int image;
+    String title,description,photo;
+    int price,restOf,id;
 
-    public ListData(String name, String time, int ingredients, int desc, int image) {
-        this.name = name;
-        this.time = time;
-        this.ingredients = ingredients;
-        this.desc = desc;
-        this.image = image;
+    public ListData(int id,String title,String description, String photo,int price,int restOf) {
+        this.restOf = restOf;
+        this.price = price;
+        this.photo = photo;
+        this.description = description;
+        this.title = title;
+        this.id=id;
     }
 }

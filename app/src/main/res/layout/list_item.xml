@@ -25,8 +25,9 @@
     android:layout_marginTop="10dp"
     app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
+
         android:id="@+id/listName"
         android:text="Name"
         android:textColor="@color/lavander"
@@ -34,16 +35,19 @@
         android:layout_marginTop="25dp"
         android:layout_marginStart="30dp"
         android:layout_toEndOf="@id/listImage"/>
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:id="@+id/listTime"
-        android:text="time"
-        android:textSize="16sp"
-        android:layout_toEndOf="@id/listName"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="100dp"
-        android:textColor="@color/lavander"/>
+
+        <TextView
+            android:id="@+id/listPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/listName"
+            android:textAlignment="textEnd"
+            android:text="time"
+            android:textColor="@color/lavander"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -10,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static String DB_PATH;
@@ -62,6 +64,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         else return true;
     }
+
+
+
     public Boolean checkEmailPassword(String email, String password) {
         create_db();
         SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);;
@@ -77,6 +82,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else {
             cursor.close(); return false;}
     }
+
+
 
     public Boolean insertDataUser(String fio, String role, String login, String password,String phone) {
         ContentValues values = new ContentValues();
@@ -94,11 +101,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
-    public void saveChanges( SQLiteDatabase MyDatabaseChange ){
-        create_db();
-        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);;
 
-    }
+
+
+
+
+
+
     public SQLiteDatabase open()throws SQLException {
 
         return SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
@@ -106,29 +115,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     void create_db(){
 
         File file = new File(DB_PATH);
-
-        if (!file.exists()) {
-            //получаем локальную бд как поток
-            try(InputStream myInput = myContext.getAssets().open(DB_NAME);
-                // Открываем пустую бд
-                OutputStream myOutput = new FileOutputStream(DB_PATH)) {
-
-                // побайтово копируем данные
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = myInput.read(buffer)) > 0) {
-                    myOutput.write(buffer, 0, length);
-                }
-                myOutput.flush();
-            }
-            catch(IOException ex){
-                Log.d("DatabaseHelper", ex.getMessage());
-            }
-        }
-    }
-    void saveChanges(){
-
-        File file = new File(DB_PATH);
         if (!file.exists()) {
             //получаем локальную бд как поток
             try(InputStream myInput = myContext.getAssets().open(DB_NAME);
@@ -149,6 +135,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+   public  ArrayList<ListData> getItemss() {
+       ArrayList<ListData> dataArrayList=new ArrayList<>();
+       ListData listData;
+       create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor = MyDatabase.query("Product", null, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                listData = new ListData(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(2), cursor.getInt(5),cursor.getInt(6));
+
+                dataArrayList.add(listData);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return dataArrayList;
+    }
 }
 
 

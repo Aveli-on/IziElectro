@@ -1,5 +1,7 @@
 package kurs.project.izielectro;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,7 +16,7 @@ import kurs.project.izielectro.databinding.ActivityUserDatailedBinding;
 public class userActivityDatailed extends AppCompatActivity {
 
     ActivityUserDatailedBinding binding;
-
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,17 +24,22 @@ public class userActivityDatailed extends AppCompatActivity {
         binding=ActivityUserDatailedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent=this.getIntent();
+        /*intent.putExtra("id",dataArrayList.get(i).id);
+                intent.putExtra("title",dataArrayList.get(i).title);
+                intent.putExtra("description",dataArrayList.get(i).description);
+                intent.putExtra("price",dataArrayList.get(i).price);
+                intent.putExtra("photo",dataArrayList.get(i).photo);*/
         if(intent!=null){
-            String name=intent.getStringExtra("name");
-            String time=intent.getStringExtra("time");
-            int ingredients=intent.getIntExtra("ingredients",R.string.ingr1);
-            int desc=intent.getIntExtra("desc",R.string.desc1);
-            int image=intent.getIntExtra("image",R.drawable.phone);
-            binding.detailName.setText(name);
-            binding.detailTime.setText(time);
-            binding.detailIngredients.setText(ingredients);
-            binding.detailDesc.setText(desc);
-            binding.detailImage.setImageResource(image);
+            String title=intent.getStringExtra("title");
+            String description=intent.getStringExtra("description");
+            int price=intent.getIntExtra("price",0);
+            id=intent.getIntExtra("id",0);
+            String photo=intent.getStringExtra("photo");
+            binding.detailName.setText(title);
+            binding.detailPrice.setText(price+" руб.");
+            binding.detailDescription.setText(description);
+            binding.detailImage.setImageResource(this.getResources().getIdentifier(photo, "drawable", this.getPackageName()));
+            ;
         }
     }
 }

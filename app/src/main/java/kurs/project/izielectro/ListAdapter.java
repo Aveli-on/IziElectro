@@ -27,10 +27,12 @@ public class ListAdapter extends ArrayAdapter<ListData> {
         }
         ImageView listImage=view.findViewById(R.id.listImage);
         TextView listName=view.findViewById(R.id.listName);
-        TextView listTime=view.findViewById(R.id.listTime);
-        listImage.setImageResource(listData.image);
-        listName.setText(listData.name);
-        listTime.setText(listData.time);
+        TextView listTime=view.findViewById(R.id.listPrice);
+        int i= parent.getResources().getIdentifier(listData.photo, "drawable", getContext().getPackageName());;
+        listImage.setImageResource(i);
+        listName.setText(listData.title);
+        String price= listData.price+" руб.";
+        listTime.setText(price);
         return view;
     }
 }
