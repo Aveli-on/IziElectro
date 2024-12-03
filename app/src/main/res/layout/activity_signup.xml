@@ -16,12 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="170dp"
         android:padding="20dp">
         <EditText
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:id="@+id/signup_login"
+            android:id="@+id/signup_fio"
             android:background="@drawable/lavender_border"
             android:layout_marginTop="30dp"
             android:padding="8dp"
@@ -38,17 +38,26 @@
         android:hint="Номер телефона"
         android:drawableLeft="@drawable/baseline_contact_phone_24"
         android:drawablePadding="8dp"/>
-
+        <Spinner
+            android:background="@drawable/lavender_border"
+            android:layout_marginTop="20dp"
+            android:minWidth="350dp"
+            android:minHeight="60dp"
+            android:id="@+id/signup_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
         <EditText
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:id="@+id/signup_role"
+            android:id="@+id/signup_login"
             android:background="@drawable/lavender_border"
             android:layout_marginTop="20dp"
             android:padding="8dp"
-            android:hint="Роль"
-            android:drawableLeft="@drawable/baseline_supervised_user_circle_24"
-
+            android:hint="Логин"
+            android:drawableLeft="@drawable/baseline_login_24"
             android:drawablePadding="8dp"/>
         <EditText
             android:layout_width="350dp"

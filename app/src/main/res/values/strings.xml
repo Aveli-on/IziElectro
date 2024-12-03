@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">IziElectro</string>
+    <string name="ingr1">Железо</string>
+    <string name="ingr2">Медь</string>
+    <string name="ingr3">Золото</string>
+    <string name="desc1">123</string>
+    <string name="desc2">2321</string>
+    <string name="desc3">432</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.BoringLayout;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import kurs.project.izielectro.databinding.ActivitySignupBinding;
 public class SignupActivity extends AppCompatActivity {
     ActivitySignupBinding binding;
     DatabaseHelper databaseHelper;
+    String[] role = { "Не выбрано", "Пользователь", "Администратор"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,47 +27,47 @@ public class SignupActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
         databaseHelper=new DatabaseHelper(this);
-        Button but1=findViewById(R.id.signup_button);
-        binding.signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email=binding.signupEmail.getText().toString();
-                String password=binding.signupPassword.getText().toString();
-                String confirmPassword=binding.signupConfirm.getText().toString();
-                if(email.equals(("")) || password.equals("") || confirmPassword.equals("")){
-                    Toast.makeText(SignupActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
-                }else if(password.equals(confirmPassword)){
-                    Boolean checkUsername=databaseHelper.checkEmail(email);
-                    if(checkUsername==true){
-                        Boolean insert=databaseHelper.insertData(email,password);
-                        if(insert){
-                            Toast.makeText(SignupActivity.this, "Вы успешно зарегистрировались", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
-                            startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(SignupActivity.this, "Регистрация не удалась", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(SignupActivity.this, "Такой email уже зарегистрирован", Toast.LENGTH_SHORT).show();
-                    }
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, role);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.signupRole.setAdapter(adapter);
+
+        binding.signupButton.setOnClickListener(view -> {
+            String fio=binding.signupFio.getText().toString();
+            String role=binding.signupRole.getSelectedItem().toString();
+            String login=binding.signupLogin.getText().toString();
+            String password=binding.signupPassword.getText().toString();
+            String phone=binding.signupPhone.getText().toString();
+            String confirmPassword=binding.signupConfirm.getText().toString();
+            if(login.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || role.equals("Не выбрано")|| fio.isEmpty()){
+                Toast.makeText(SignupActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
+            }else if(password.equals(confirmPassword)){
+                Boolean checkUsername=databaseHelper.checkEmail(login);
+                if(checkUsername==true){
+                    Boolean insert=databaseHelper.insertDataUser(fio,role,login,password,phone);
+                    if(insert){
+                        Toast.makeText(SignupActivity.this, "Вы успешно зарегистрировались", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(SignupActivity.this, "Регистрация не удалась", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(SignupActivity.this, "Такой email уже зарегистрирован", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(SignupActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
-                }
+
             }
-        } );
+            else{
+                Toast.makeText(SignupActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         binding.loginRedirectText.setOnClickListener(view -> {
             Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
+
     }
 }
