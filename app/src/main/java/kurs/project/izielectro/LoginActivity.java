@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import kurs.project.izielectro.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
-ActivityLoginBinding binding;
+    ActivityLoginBinding binding;
 DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ DatabaseHelper databaseHelper;
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

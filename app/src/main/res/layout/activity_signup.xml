@@ -21,24 +21,46 @@
         <EditText
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:id="@+id/signup_email"
+            android:id="@+id/signup_login"
             android:background="@drawable/lavender_border"
             android:layout_marginTop="30dp"
             android:padding="8dp"
-            android:hint="Email"
-            android:drawableLeft="@drawable/baseline_email_24"
+            android:hint="ФИО"
+            android:drawableLeft="@drawable/baseline_account_box_24"
             android:drawablePadding="8dp"/>
     <EditText
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:id="@+id/signup_password"
+        android:id="@+id/signup_phone"
         android:background="@drawable/lavender_border"
         android:layout_marginTop="20dp"
         android:padding="8dp"
-        android:hint="Password"
-        android:drawableLeft="@drawable/baseline_lock_24"
-        android:inputType="textPassword"
+        android:hint="Номер телефона"
+        android:drawableLeft="@drawable/baseline_contact_phone_24"
         android:drawablePadding="8dp"/>
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:id="@+id/signup_role"
+            android:background="@drawable/lavender_border"
+            android:layout_marginTop="20dp"
+            android:padding="8dp"
+            android:hint="Роль"
+            android:drawableLeft="@drawable/baseline_supervised_user_circle_24"
+
+            android:drawablePadding="8dp"/>
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:id="@+id/signup_password"
+            android:background="@drawable/lavender_border"
+            android:layout_marginTop="20dp"
+            android:padding="8dp"
+            android:hint="Password"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:inputType="textPassword"
+            android:drawablePadding="8dp"/>
     <EditText
         android:layout_width="350dp"
         android:layout_height="60dp"

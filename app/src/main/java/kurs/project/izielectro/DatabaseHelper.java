@@ -5,47 +5,108 @@ import android.app.Application;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String databaseName="IziElectro.db";
-    Context con;
+    private static String DB_PATH; // полный путь к базе данных
+    private static String DB_NAME = "IziElectro.db";
+    private static final int SCHEMA = 1; // версия базы данных
+    static final String TABLE = "User"; // название таблицы в бд
+
+    private Context myContext;
+
     public DatabaseHelper(@Nullable Context context) {
 
         super(context,"IziElectro.db",null,1);
-        con=context;
+        this.myContext=context;
+        DB_PATH=context.getFilesDir().getPath()+DB_NAME;
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase MyDatabase) {
-        Toast.makeText(con, "DB created", Toast.LENGTH_SHORT).show();
+        Toast.makeText(myContext, "DB created", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase MyDatabase, int i, int i1) {
-        MyDatabase.execSQL("DROP TABLE IF EXISTS "+databaseName);
+
     }
     public Boolean checkEmail(String email) {
-        SQLiteDatabase MyDatabase = this.getWritableDatabase();
-        Cursor cursor = MyDatabase.rawQuery("SELECT * FROM " + databaseName + " WHERE Login=?", new String[]{email});
-        if (cursor.getCount() > 0) return true;
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
 
-        else return false;
+        Cursor cursor;
+        try {
+            cursor = MyDatabase.rawQuery("SELECT * FROM User WHERE Login=?", new String[]{email});
+        } catch (Exception e){
+            Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (cursor.getCount() > 0) return false;
+
+        else return true;
     }
     public Boolean checkEmailPassword(String email, String password) {
-        SQLiteDatabase MyDatabase = this.getWritableDatabase();
-        Cursor cursor = MyDatabase.rawQuery("SELECT * FROM " + databaseName + " WHERE Login=? AND Password=?", new String[]{email, password});
-        if (cursor.getCount() > 0) return true;
-        else return false;
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);;
+        Cursor cursor;
+        try{
+            cursor= MyDatabase.rawQuery("SELECT * FROM User WHERE Login=? AND Password=?", new String[]{email, password});}
+        catch (Exception e){
+            Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        MyDatabase.isOpen();
+        if (cursor.getCount() > 0) {cursor.close();return true;}
+        else {
+            cursor.close(); return false;}
     }
 
     public Boolean insertData(String email, String password) {
+
         return true;
     }
+    public SQLiteDatabase open()throws SQLException {
+
+        return SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+    }
+    void create_db(){
+
+        File file = new File(DB_PATH);
+        if (!file.exists()) {
+            //получаем локальную бд как поток
+            try(InputStream myInput = myContext.getAssets().open(DB_NAME);
+                // Открываем пустую бд
+                OutputStream myOutput = new FileOutputStream(DB_PATH)) {
+
+                // побайтово копируем данные
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = myInput.read(buffer)) > 0) {
+                    myOutput.write(buffer, 0, length);
+                }
+                myOutput.flush();
+            }
+            catch(IOException ex){
+                Log.d("DatabaseHelper", ex.getMessage());
+            }
+        }
+    }
+
 }
 
 

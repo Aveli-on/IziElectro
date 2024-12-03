@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.BoringLayout;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,8 +23,9 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup);
+        setContentView(binding.getRoot());
         databaseHelper=new DatabaseHelper(this);
+        Button but1=findViewById(R.id.signup_button);
         binding.signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,12 +56,11 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         } );
-        binding.loginRedirectText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
+
+        binding.loginRedirectText.setOnClickListener(view -> {
+            Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
