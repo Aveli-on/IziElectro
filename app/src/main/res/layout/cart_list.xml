@@ -49,6 +49,7 @@
             android:textColor="@color/lavander"
             android:textSize="18sp" />
         <EditText
+            android:focusable="auto"
             android:id="@+id/Quantity"
             android:layout_width="60dp"
             android:layout_height="50dp"

@@ -1,6 +1,7 @@
 package kurs.project.izielectro;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -51,6 +52,8 @@ public class ListCartAdapter extends ArrayAdapter<ListCart> {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
+                databaseHelper.updateQuantity(listCart.idDetail, Integer.parseInt(editable.toString()));
                 listCart.quantity=Integer.parseInt(editable.toString());
             }
         });

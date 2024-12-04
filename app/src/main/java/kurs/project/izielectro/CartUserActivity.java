@@ -38,8 +38,8 @@ public class CartUserActivity extends AppCompatActivity {
         binding.listView.setClickable(true);
         binding.orderButton.setOnClickListener(view -> {
             for (int i = 0; i < dataArrayList.size(); i++) {
-                //db.updateQuantity(dataArrayList.get(i).idProduct,dataArrayList.get(i).quantity);
-                }
+                db.acceptOrder(dataArrayList.get(i).idDetail,dataArrayList.get(i).idUser,dataArrayList.get(i).idProduct);
+            }
             Toast.makeText(CartUserActivity.this, "Вы успешно оформили заказ", Toast.LENGTH_SHORT).show();
             finish();
         });
@@ -54,9 +54,18 @@ public class CartUserActivity extends AppCompatActivity {
                 intent.putExtra("price",dataArrayList.get(i).price);
                 intent.putExtra("photo",dataArrayList.get(i).photo);
                 intent.putExtra("id_user",idUser);
-                intent.putExtra("cart",true);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DatabaseHelper db=new DatabaseHelper(this);
+        dataArrayList= db.getCart(idUser);
+        listAdapter=new ListCartAdapter(this,dataArrayList);
+        binding.listView.setAdapter(listAdapter);
+        binding.listView.setClickable(true);
     }
 }

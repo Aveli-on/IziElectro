@@ -18,7 +18,7 @@ public class userActivityDatailed extends AppCompatActivity {
 
     ActivityUserDatailedBinding binding;
     int id,idUser;
-    Boolean cart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,25 +33,30 @@ public class userActivityDatailed extends AppCompatActivity {
             id=intent.getIntExtra("id",0);
             idUser=intent.getIntExtra("id_user",0);
             String photo=intent.getStringExtra("photo");
-            cart=intent.getBooleanExtra("cart",false);
             binding.detailName.setText(title);
             binding.detailPrice.setText(price+" руб.");
             binding.detailDescription.setText(description);
             binding.detailImage.setImageResource(this.getResources().getIdentifier(photo, "drawable", this.getPackageName()));
 
         }
-        if(cart){
-            binding.addToCartButton.setText("Удалить из корзины");
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        if(databaseHelper.checkProduct(idUser,id)){
+            binding.addToCartButton.setText("В корзине");
+
         }
-        else {
-            binding.addToCartButton.setOnClickListener(view -> {
-                DatabaseHelper databaseHelper = new DatabaseHelper(this);
-                if (!databaseHelper.checkProduct(id)) {
+        binding.addToCartButton.setOnClickListener(view -> {
+
+                if (!databaseHelper.checkProduct(idUser,id)) {
                     databaseHelper.addToCart(idUser, id);
+                    binding.addToCartButton.setText("В корзине");
+                }
+                else{
+                    databaseHelper.deleteFromCart(idUser,id);
+                    binding.addToCartButton.setText("В корзину");
                 }
 
-                binding.addToCartButton.setText("В корзине");
+
             });
-        }
+
     }
 }
