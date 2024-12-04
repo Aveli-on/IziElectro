@@ -67,22 +67,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public Boolean checkEmailPassword(String email, String password) {
+    public int checkEmailPassword(String email, String password) {
         create_db();
-        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);;
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
         Cursor cursor;
+        int id;
         try{
             cursor= MyDatabase.rawQuery("SELECT * FROM User WHERE Login=? AND Password=?", new String[]{email, password});}
         catch (Exception e){
             Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
-            return false;
+            return -1;
         }
-        MyDatabase.isOpen();
-        if (cursor.getCount() > 0) {cursor.close();return true;}
-        else {
-            cursor.close(); return false;}
-    }
 
+        if (cursor.getCount() > 0) { cursor.moveToFirst(); id= cursor.getInt(0);cursor.close();return id;}
+        else {
+            cursor.close(); return -1;}
+    }
+    public String checkRole(int id){
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+
+        String querId="id="+id;
+        Cursor cursor=MyDatabase.query("User", new String[]{"Role"}, querId, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            querId= cursor.getString(0);
+            cursor.close();
+            return querId;
+        }
+
+        return "";
+    }
 
 
     public Boolean insertDataUser(String fio, String role, String login, String password,String phone) {
@@ -135,10 +150,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addToCart(int id){}
+
+
    public  ArrayList<ListData> getItemss() {
        ArrayList<ListData> dataArrayList=new ArrayList<>();
        ListData listData;
        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor = MyDatabase.query("Product", null, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                listData = new ListData(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(2), cursor.getInt(5),cursor.getInt(6));
+
+                dataArrayList.add(listData);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return dataArrayList;
+    }
+    public  ArrayList<ListData> getCart() {
+        ArrayList<ListData> dataArrayList=new ArrayList<>();
+        ListData listData;
+        create_db();
         SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
         Cursor cursor = MyDatabase.query("Product", null, null, null, null, null, null);
         if (cursor != null) {

@@ -17,7 +17,7 @@ import kurs.project.izielectro.databinding.ActivityMainBinding;
 import kurs.project.izielectro.databinding.ActivityUserBinding;
 
 public class userActivity extends AppCompatActivity {
-
+int idUser;
     ActivityUserBinding binding;
     ListAdapter listAdapter;
     ArrayList<ListData> dataArrayList=new ArrayList<>();
@@ -28,6 +28,10 @@ public class userActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         binding=ActivityUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Intent intent=this.getIntent();
+        if (intent!=null) {
+            idUser=intent.getIntExtra("id_user",0);
+        }
         DatabaseHelper db=new DatabaseHelper(this);
         dataArrayList= db.getItemss();
         listAdapter=new ListAdapter(this,dataArrayList);
@@ -43,6 +47,7 @@ public class userActivity extends AppCompatActivity {
                 intent.putExtra("description",dataArrayList.get(i).description);
                 intent.putExtra("price",dataArrayList.get(i).price);
                 intent.putExtra("photo",dataArrayList.get(i).photo);
+                intent.putExtra("id_user",idUser);
                 startActivity(intent);
             }
 

@@ -33,11 +33,20 @@ DatabaseHelper databaseHelper;
                 if (email.equals("") || password.equals("")){
                     Toast.makeText(LoginActivity.this, "Заполните все поля", Toast.LENGTH_SHORT).show();
                 }else{
-                    Boolean checkCredentials=databaseHelper.checkEmailPassword(email,password);
-                    if(checkCredentials==true){
+                    int checkCredentials=databaseHelper.checkEmailPassword(email,password);
+                    if(checkCredentials!=-1){
                         Toast.makeText(LoginActivity.this, "Вы успешно вошли", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        if (databaseHelper.checkRole(checkCredentials).equals("Пользователь")){
+                            Intent intent=new Intent(getApplicationContext(), userActivity.class);
+                            intent.putExtra("id_user",checkCredentials);
+                            startActivity(intent);
+                        }
+                        else if(databaseHelper.checkRole(checkCredentials).equals("Администратор")){
+                            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("id_user",checkCredentials);
+                            startActivity(intent);
+                        }
+
                     }else{
                         Toast.makeText(LoginActivity.this, "Неверные данные", Toast.LENGTH_SHORT).show();
                     }

@@ -16,7 +16,7 @@ import kurs.project.izielectro.databinding.ActivityUserDatailedBinding;
 public class userActivityDatailed extends AppCompatActivity {
 
     ActivityUserDatailedBinding binding;
-    int id;
+    int id,idUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,22 +24,21 @@ public class userActivityDatailed extends AppCompatActivity {
         binding=ActivityUserDatailedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent=this.getIntent();
-        /*intent.putExtra("id",dataArrayList.get(i).id);
-                intent.putExtra("title",dataArrayList.get(i).title);
-                intent.putExtra("description",dataArrayList.get(i).description);
-                intent.putExtra("price",dataArrayList.get(i).price);
-                intent.putExtra("photo",dataArrayList.get(i).photo);*/
         if(intent!=null){
             String title=intent.getStringExtra("title");
             String description=intent.getStringExtra("description");
             int price=intent.getIntExtra("price",0);
             id=intent.getIntExtra("id",0);
+            idUser=intent.getIntExtra("id_user",0);
             String photo=intent.getStringExtra("photo");
             binding.detailName.setText(title);
             binding.detailPrice.setText(price+" руб.");
             binding.detailDescription.setText(description);
             binding.detailImage.setImageResource(this.getResources().getIdentifier(photo, "drawable", this.getPackageName()));
-            ;
+
         }
+        binding.addToCartButton.setOnClickListener(view -> {
+            binding.addToCartButton.setText("В корзине");
+        });
     }
 }
