@@ -57,7 +57,9 @@
             android:layout_toEndOf="@id/QuantityText"
             android:hint="1234"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:inputType="numberDecimal"
+            />
         <TextView
             android:id="@+id/cartPriceText"
             android:layout_width="wrap_content"

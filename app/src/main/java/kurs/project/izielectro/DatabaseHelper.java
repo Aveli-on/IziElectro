@@ -190,6 +190,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return dataArrayList;
     }
+    public void updateQuantity(int id, int quantity){
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        String querId="id="+id;
+        String querQuantity="quantity="+quantity;
+        MyDatabase.execSQL("UPDATE Detail SET Quantity="+quantity+" WHERE Id="+id);
+        /*MyDatabase.execSQL("UPDATE Detail SET Bought=\"ДА\" WHERE Id="+id);*/
+    }
+    public boolean checkProduct(int idProduct){
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor=MyDatabase.rawQuery("SELECT * FROM Detail WHERE IdProduct="+idProduct +" and Bought=\"НЕТ\"", null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+    public void acceptOrder(int idDetail){
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        MyDatabase.execSQL("UPDATE Detail SET Bought=\"ДА\" WHERE Id="+idDetail);
+    }
+    public void addToCart(int idUser, int idProduct){
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        ContentValues values = new ContentValues();
+        values.put("IdUser", idUser);
+        values.put("IdProduct", idProduct);
+        values.put("Quantity", 1);
+        values.put("Bought", "НЕТ");
+        long result = MyDatabase.insert("Detail", null, values);
+        if (result != -1) {
+            Log.d("Database", "Данные успешно добавлены");
+
+        }
+        else Log.d("Database", "Данные не добавлены");
+
+    }
 }
 
 

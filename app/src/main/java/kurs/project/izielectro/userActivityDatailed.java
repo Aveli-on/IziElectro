@@ -4,6 +4,7 @@ import static java.security.AccessController.getContext;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.BoringLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class userActivityDatailed extends AppCompatActivity {
 
     ActivityUserDatailedBinding binding;
     int id,idUser;
+    Boolean cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +33,25 @@ public class userActivityDatailed extends AppCompatActivity {
             id=intent.getIntExtra("id",0);
             idUser=intent.getIntExtra("id_user",0);
             String photo=intent.getStringExtra("photo");
+            cart=intent.getBooleanExtra("cart",false);
             binding.detailName.setText(title);
             binding.detailPrice.setText(price+" руб.");
             binding.detailDescription.setText(description);
             binding.detailImage.setImageResource(this.getResources().getIdentifier(photo, "drawable", this.getPackageName()));
 
         }
-        binding.addToCartButton.setOnClickListener(view -> {
-            binding.addToCartButton.setText("В корзине");
-        });
+        if(cart){
+            binding.addToCartButton.setText("Удалить из корзины");
+        }
+        else {
+            binding.addToCartButton.setOnClickListener(view -> {
+                DatabaseHelper databaseHelper = new DatabaseHelper(this);
+                if (!databaseHelper.checkProduct(id)) {
+                    databaseHelper.addToCart(idUser, id);
+                }
+
+                binding.addToCartButton.setText("В корзине");
+            });
+        }
     }
 }
