@@ -21,7 +21,7 @@ int idUser;
     ActivityUserBinding binding;
     ListAdapter listAdapter;
     ArrayList<ListData> dataArrayList=new ArrayList<>();
-    ListData listData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,11 @@ int idUser;
             }
 
 
+        });
+        binding.cartButton.setOnClickListener(view -> {
+            Intent intentt=new Intent(getApplicationContext(), CartUserActivity.class);
+            intentt.putExtra("id_user",idUser);
+            startActivity(intentt);
         });
     }
 }

@@ -17,7 +17,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/listImage"
+            android:id="@+id/cartImage"
             android:src="@drawable/phone"
             android:scaleType="centerCrop"
             android:layout_marginStart="10dp"
@@ -25,41 +25,61 @@
             android:layout_marginTop="10dp"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
 
-            android:id="@+id/listName"
+            android:id="@+id/cartName"
             android:text="Name"
             android:textColor="@color/lavander"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:layout_marginTop="25dp"
-            android:layout_marginStart="30dp"
-            android:layout_toEndOf="@id/listImage"/>
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@id/cartImage"/>
 
         <TextView
-            android:id="@+id/Quantity"
+            android:id="@+id/QuantityText"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
+
             android:layout_marginTop="50dp"
             android:layout_marginEnd="60dp"
-            android:layout_toStartOf="@id/listName"
+            android:layout_toEndOf="@id/cartName"
             android:textAlignment="textEnd"
             android:text="Количество"
             android:textColor="@color/lavander"
             android:textSize="18sp" />
-
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:id="@+id/Quantity"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:layout_marginStart="-60dp"
-            android:layout_marginTop="47dp"
-
-            android:layout_toEndOf="@id/Quantity"
-            android:text="123"
-
+            android:layout_marginTop="40dp"
+            android:layout_toEndOf="@id/QuantityText"
+            android:hint="1234"
             android:textColor="@color/black"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/cartPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/cartName"
+            android:layout_marginTop="10dp"
+            android:textAlignment="textEnd"
+            android:text="Стоимость"
+            android:textColor="@color/lavander"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/cartPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/cartPriceText"
+            android:layout_marginStart="10dp"
+            android:text="123"
+            android:textColor="@color/lavander"
+            android:textSize="18sp" />
+
+
 
     </RelativeLayout>
 

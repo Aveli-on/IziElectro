@@ -171,18 +171,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return dataArrayList;
     }
-    public  ArrayList<ListData> getCart() {
-        ArrayList<ListData> dataArrayList=new ArrayList<>();
-        ListData listData;
+    public  ArrayList<ListCart> getCart(int idUser) {
+        ArrayList<ListCart> dataArrayList=new ArrayList<>();
+        ListCart listCart;
         create_db();
         SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
-        Cursor cursor = MyDatabase.query("Product", null, null, null, null, null, null);
+        String querId="id="+idUser;
+
+        Cursor cursor = MyDatabase.rawQuery("SELECT User.Id ,Product.Id,Detail.Id, Photo,Title,Description,Price,Quantity FROM Product INNER JOIN Detail on Product.Id=Detail.IdProduct INNER JOIN User on User.Id=Detail.IdUser WHERE Bought=\"НЕТ\" and User.Id=?", new String[]{String.valueOf(idUser)});
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                listData = new ListData(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(2), cursor.getInt(5),cursor.getInt(6));
-
-                dataArrayList.add(listData);
+                listCart = new ListCart(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6),cursor.getInt(7));
+                dataArrayList.add(listCart);
                 cursor.moveToNext();
             }
             cursor.close();
