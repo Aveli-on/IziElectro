@@ -45,7 +45,7 @@
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/listName"
             android:textAlignment="textEnd"
-            android:text="time"
+            android:text="price"
             android:textColor="@color/lavander"
             android:textSize="18sp" />
     </RelativeLayout>

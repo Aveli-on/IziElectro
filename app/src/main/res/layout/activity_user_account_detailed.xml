@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".SignupActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:padding="20dp">
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:id="@+id/detail_login"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="30dp"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text="Логин"
+                android:drawableStart="@drawable/baseline_login_24"
+                android:drawablePadding="8dp"/>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:id="@+id/detail_fio"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:text="ФИО"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:drawableStart="@drawable/baseline_account_box_24"
+                android:drawablePadding="10dp"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:id="@+id/detail_phone"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text="Номер телефона"
+                android:drawableStart="@drawable/baseline_contact_phone_24"
+                android:drawablePadding="8dp"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:id="@+id/detail_role"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text="роль"
+                android:drawableStart="@drawable/baseline_supervised_user_circle_24"
+                android:drawablePadding="8dp"
+                />
+
+
+        </LinearLayout>
+
+</ScrollView>

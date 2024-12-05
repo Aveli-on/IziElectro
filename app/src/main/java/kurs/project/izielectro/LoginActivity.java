@@ -42,7 +42,7 @@ DatabaseHelper databaseHelper;
                             startActivity(intent);
                         }
                         else if(databaseHelper.checkRole(checkCredentials).equals("Администратор")){
-                            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent=new Intent(getApplicationContext(), AdminActivity.class);
                             intent.putExtra("id_user",checkCredentials);
                             startActivity(intent);
                         }

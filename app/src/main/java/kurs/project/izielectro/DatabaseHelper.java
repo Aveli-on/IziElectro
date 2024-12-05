@@ -191,7 +191,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return dataArrayList;
     }
+    public  ArrayList<ListOrder> getOrder(int idUser) {
+        ArrayList<ListOrder> dataArrayList=new ArrayList<>();
+        ListOrder listOrder;
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor = MyDatabase.rawQuery("SELECT Product.Id,Quantity ,Title,Photo FROM Product INNER JOIN Detail on Product.Id=Detail.IdProduct INNER JOIN User on User.Id=Detail.IdUser WHERE Bought=\"ДА\" and User.Id=?", new String[]{String.valueOf(idUser)});
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                listOrder = new ListOrder(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3));
+                dataArrayList.add(listOrder);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return dataArrayList;
+    }
 
+    public  String[] getUser(int idUser) {
+        String[] result=new String[5];
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor = MyDatabase.rawQuery("SELECT  Login,FIO,PhoneNumber,Role FROM User  WHERE  User.Id=?", new String[]{String.valueOf(idUser)});
+        if (cursor != null) {
+            cursor.moveToFirst();
+                result[0]=cursor.getString(0);
+                result[1]=cursor.getString(1);
+                result[2]=cursor.getString(2);
+                result[3]=cursor.getString(3);
+
+            cursor.close();
+        }
+        return result;
+    }
     public boolean checkProduct(int idUser,int idProduct){
         create_db();
         SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);

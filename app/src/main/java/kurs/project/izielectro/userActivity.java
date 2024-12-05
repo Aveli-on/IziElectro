@@ -58,5 +58,10 @@ int idUser;
             intentt.putExtra("id_user",idUser);
             startActivity(intentt);
         });
+        binding.accountButton.setOnClickListener(view -> {
+            Intent intentt=new Intent(getApplicationContext(), UserAccount.class);
+            intentt.putExtra("id_user",idUser);
+            startActivity(intentt);
+        });
     }
 }
