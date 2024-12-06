@@ -172,6 +172,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return dataArrayList;
     }
+    public  ArrayList<ListData> getItemsFilter(String match,int category) {
+        ArrayList<ListData> dataArrayList=new ArrayList<>();
+        ListData listData;
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        String query="Select * from Product ";
+        String matchQuerry="Title like \"%"+match+"%\" ";
+        String and=" AND ";
+        String where=" WHERE ";
+        Cursor cursor;
+        String catetegoryQuerry= "idCategory="+category;
+        if (category==0&&match.trim().equals("")){
+             cursor= MyDatabase.rawQuery(query, null);
+        }
+        else if(category!=0&&match.trim().equals("")){
+            cursor= MyDatabase.rawQuery(query+where+catetegoryQuerry, null, null);
+        }
+        else if(category==0&& !match.trim().equals("")){
+            String qer=query+where+matchQuerry;
+            cursor= MyDatabase.rawQuery(query+where+matchQuerry, null, null);
+        }
+        else {
+            cursor= MyDatabase.rawQuery(query+where+matchQuerry+and+catetegoryQuerry, null, null);
+        }
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                listData = new ListData(cursor.getInt(0), cursor.getInt(1), cursor.getString(3), cursor.getString(4), cursor.getString(2), cursor.getInt(5),cursor.getInt(6));
+
+                dataArrayList.add(listData);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return dataArrayList;
+    }
     public  ArrayList<ListCart> getCart(int idUser) {
         ArrayList<ListCart> dataArrayList=new ArrayList<>();
         ListCart listCart;
@@ -196,11 +232,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ListOrder listOrder;
         create_db();
         SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
-        Cursor cursor = MyDatabase.rawQuery("SELECT Product.Id,Quantity ,Title,Photo FROM Product INNER JOIN Detail on Product.Id=Detail.IdProduct INNER JOIN User on User.Id=Detail.IdUser WHERE Bought=\"ДА\" and User.Id=?", new String[]{String.valueOf(idUser)});
+        Cursor cursor = MyDatabase.rawQuery("SELECT Product.Id,Quantity ,Title,Photo,FIO FROM Product INNER JOIN Detail on Product.Id=Detail.IdProduct INNER JOIN User on User.Id=Detail.IdUser WHERE Bought=\"ДА\" and User.Id=?", new String[]{String.valueOf(idUser)});
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                listOrder = new ListOrder(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3));
+                listOrder = new ListOrder(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3),cursor.getString(4));
+                dataArrayList.add(listOrder);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return dataArrayList;
+    }
+    public  ArrayList<ListOrder> getOrders() {
+        ArrayList<ListOrder> dataArrayList=new ArrayList<>();
+        ListOrder listOrder;
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor = MyDatabase.rawQuery("SELECT Product.Id,Quantity ,Title,Photo,FIO FROM Product INNER JOIN Detail on Product.Id=Detail.IdProduct INNER JOIN User on User.Id=Detail.IdUser WHERE Bought=\"ДА\" ORDER BY FIO ", null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                listOrder = new ListOrder(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3),cursor.getString(4));
                 dataArrayList.add(listOrder);
                 cursor.moveToNext();
             }

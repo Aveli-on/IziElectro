@@ -1,7 +1,9 @@
 package kurs.project.izielectro;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Locale;
+
 import kurs.project.izielectro.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,11 +22,13 @@ public class LoginActivity extends AppCompatActivity {
 DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+        startActivity(intent);
 
         databaseHelper=new DatabaseHelper(this);
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
@@ -64,4 +70,5 @@ DatabaseHelper databaseHelper;
         });
 
     }
+
 }
