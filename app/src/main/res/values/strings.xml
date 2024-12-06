@@ -6,4 +6,5 @@
     <string name="desc1">123</string>
     <string name="desc2">2321</string>
     <string name="desc3">432</string>
+    <string name="spinner_hint">Категория</string>
 </resources>

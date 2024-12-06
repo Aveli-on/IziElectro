@@ -163,7 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                listData = new ListData(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(2), cursor.getInt(5),cursor.getInt(6));
+                listData = new ListData(cursor.getInt(0), cursor.getInt(1), cursor.getString(3), cursor.getString(4), cursor.getString(2), cursor.getInt(5),cursor.getInt(6));
 
                 dataArrayList.add(listData);
                 cursor.moveToNext();
@@ -263,7 +263,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
-
+    public void updateSaveProduct(int idProduct,String photo,String title,String description,int price,int restOf,int idCategory){
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        if (idProduct==0){
+            ContentValues values = new ContentValues();
+            values.put("Title", title);
+            values.put("Photo", photo);
+            values.put("Description", description);
+            values.put("Price", price);
+            values.put("Restof", restOf);
+            values.put("IdCategory", idCategory);
+            long result = MyDatabase.insert("Product", null, values);
+            if (result != -1) {
+                Log.d("Database", "Данные успешно добавлены");
+            }
+        }
+        else{
+            MyDatabase.execSQL("UPDATE Product SET Title=? ,Photo=?,Description=?,Price=?,Restof=?,IdCategory=? WHERE Id=?", new String[]{title,photo,description,String.valueOf(price),String.valueOf(restOf),String.valueOf(idCategory),String.valueOf(idProduct)});
+        }
+    }
 
     public void addToCart(int idUser, int idProduct){
         create_db();
@@ -291,6 +310,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+    public ArrayList<Category> getCategory(){
+        ArrayList<Category> dataArrayList=new ArrayList<>();
+        Category category;
+        create_db();
+        SQLiteDatabase MyDatabase =SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor cursor = MyDatabase.rawQuery("SELECT * FROM Category", null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                category = new Category(cursor.getInt(0),cursor.getString(1));
+                dataArrayList.add(category);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return dataArrayList;
+    }
+
 }
 
 
