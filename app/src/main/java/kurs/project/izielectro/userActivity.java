@@ -119,4 +119,11 @@ int idUser;
         }
         return 0;
     }
+
+    @Override
+    protected void onResume() {
+        binding.spinCategory.setSelection(0);
+        binding.searchView.setQuery("", false);
+        super.onResume();
+    }
 }

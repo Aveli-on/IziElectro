@@ -4,11 +4,13 @@ package kurs.project.izielectro;
 import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -132,6 +134,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         File file = new File(DB_PATH);
 
         if (!file.exists()) {
+            Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            myContext.startActivity(intent);
             //получаем локальную бд как поток
             try(InputStream myInput = myContext.getAssets().open(DB_NAME);
                 // Открываем пустую бд

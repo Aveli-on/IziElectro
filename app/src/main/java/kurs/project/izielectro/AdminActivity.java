@@ -96,6 +96,8 @@ public class AdminActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        binding.spinCategory.setSelection(0);
+        binding.searchView.setQuery("", false);
         DatabaseHelper db=new DatabaseHelper(this);
         dataArrayList=db.getItemss();
         listAdapterAdmin=new ListAdapterAdmin(this,dataArrayList);

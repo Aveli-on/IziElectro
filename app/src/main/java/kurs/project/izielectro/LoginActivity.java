@@ -27,9 +27,6 @@ DatabaseHelper databaseHelper;
         EdgeToEdge.enable(this);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-        startActivity(intent);
-
         databaseHelper=new DatabaseHelper(this);
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
