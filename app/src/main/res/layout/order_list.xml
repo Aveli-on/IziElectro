@@ -30,7 +30,7 @@
             android:gravity="center"
             android:id="@+id/orderName"
             android:text="Name"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="20sp"
             android:layout_marginTop="5dp"
             android:layout_marginStart="30dp"
@@ -44,7 +44,7 @@
             android:layout_marginStart="30dp"
             android:layout_toEndOf="@id/orderImage"
             android:text="Количество:"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="18sp" />
         <TextView
             android:id="@+id/orderQuantity"
@@ -54,7 +54,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@id/orderPre"
             android:text="price"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="18sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

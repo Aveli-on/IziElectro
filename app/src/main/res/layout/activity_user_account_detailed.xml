@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".SignupActivity">
+    tools:context=".SignupActivity"
+    android:backgroundTint="@color/myBackground">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:gravity="center_horizontal">
             <TextView
                 android:layout_width="350dp"
                 android:layout_height="60dp"

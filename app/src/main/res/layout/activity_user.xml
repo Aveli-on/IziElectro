@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userActivity">
+    tools:context=".userActivity"
+    android:background="@color/myBackground">
 
 <ListView
     android:layout_width="match_parent"
@@ -47,7 +48,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinCategory"
-        android:textColor="@color/lavander"
+        android:textColor="@color/MyColor"
         android:textStyle="bold"
         android:textSize="22sp"
         android:layout_marginStart="140dp"

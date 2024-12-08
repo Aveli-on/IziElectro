@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UserAccount">
+    tools:context=".UserAccount"
+    android:background="@color/myBackground">
 <Button
     android:id="@+id/accountDetailButton"
     android:layout_width="350dp"
@@ -21,7 +22,7 @@
         android:text="Заказанные товары"
         android:gravity="center"
         android:textSize="23sp"
-        android:textColor="@color/lavander"
+        android:textColor="@color/MyColor"
         android:textStyle="bold"/>
     <ListView
         android:layout_marginTop="10dp"

@@ -53,8 +53,10 @@ public class ListCartAdapter extends ArrayAdapter<ListCart> {
             @Override
             public void afterTextChanged(Editable editable) {
                 DatabaseHelper databaseHelper=new DatabaseHelper(getContext());
-                databaseHelper.updateQuantity(listCart.idDetail, Integer.parseInt(editable.toString()));
-                listCart.quantity=Integer.parseInt(editable.toString());
+                if (editable.length() != 0) {
+                    databaseHelper.updateQuantity(listCart.idDetail, Integer.parseInt(editable.toString()));
+                    listCart.quantity = Integer.parseInt(editable.toString());
+                }
             }
         });
         return view;

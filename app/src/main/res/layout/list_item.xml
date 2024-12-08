@@ -30,7 +30,7 @@
 
         android:id="@+id/listName"
         android:text="Name"
-        android:textColor="@color/lavander"
+        android:textColor="@color/MyColor"
         android:textSize="20sp"
         android:layout_marginTop="25dp"
         android:layout_marginStart="30dp"
@@ -46,7 +46,7 @@
             android:layout_toStartOf="@id/listName"
             android:textAlignment="textEnd"
             android:text="price"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="18sp" />
     </RelativeLayout>
 

@@ -9,7 +9,8 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="8dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
 
             android:id="@+id/cartName"
             android:text="Name"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="17sp"
             android:layout_marginTop="25dp"
             android:layout_marginStart="15dp"
@@ -46,7 +47,7 @@
             android:layout_toEndOf="@id/cartName"
             android:textAlignment="textEnd"
             android:text="Количество"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="18sp" />
         <EditText
             android:focusable="auto"
@@ -69,7 +70,7 @@
             android:layout_marginTop="10dp"
             android:textAlignment="textEnd"
             android:text="Стоимость"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="18sp" />
         <TextView
             android:id="@+id/cartPrice"
@@ -79,7 +80,7 @@
             android:layout_toEndOf="@id/cartPriceText"
             android:layout_marginStart="10dp"
             android:text="123"
-            android:textColor="@color/lavander"
+            android:textColor="@color/MyColor"
             android:textSize="18sp" />
 
 

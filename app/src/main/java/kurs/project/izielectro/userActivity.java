@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-import kurs.project.izielectro.databinding.ActivityMainBinding;
+
 import kurs.project.izielectro.databinding.ActivityUserBinding;
 
 public class userActivity extends AppCompatActivity {

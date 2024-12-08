@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UserAccount">
+    tools:context=".UserAccount"
+    android:background="@color/myBackground">
     <TextView
         android:layout_marginTop="14dp"
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         android:text="Заказанные товары"
         android:gravity="center"
         android:textSize="23sp"
-        android:textColor="@color/lavander"
+        android:textColor="@color/MyColor"
         android:textStyle="bold"/>
     <ListView
         android:layout_marginTop="10dp"
@@ -25,6 +26,5 @@
         tools:listitem="@layout/order_list"
         android:scrollbars="vertical"
         android:dividerHeight="10.0dp"
-
         />
 </LinearLayout>
