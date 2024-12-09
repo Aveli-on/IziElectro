@@ -125,10 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public SQLiteDatabase open()throws SQLException {
 
-        return SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
-    }
     void create_db(){
 
         File file = new File(DB_PATH);
@@ -155,7 +152,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addToCart(int id){}
 
 
    public  ArrayList<ListData> getItemss() {
