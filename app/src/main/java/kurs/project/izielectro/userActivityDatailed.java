@@ -5,6 +5,7 @@ import static java.security.AccessController.getContext;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.BoringLayout;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,10 +50,12 @@ public class userActivityDatailed extends AppCompatActivity {
                 if (!databaseHelper.checkProduct(idUser,id)) {
                     databaseHelper.addToCart(idUser, id);
                     binding.addToCartButton.setText("В корзине");
+                    Toast.makeText(userActivityDatailed.this, "Товар добавлен в корзину", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     databaseHelper.deleteFromCart(idUser,id);
                     binding.addToCartButton.setText("В корзину");
+                    Toast.makeText(userActivityDatailed.this, "Товар удален из корзины", Toast.LENGTH_SHORT).show();
                 }
 
 

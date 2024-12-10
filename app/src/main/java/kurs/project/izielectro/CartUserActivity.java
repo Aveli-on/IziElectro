@@ -40,8 +40,11 @@ public class CartUserActivity extends AppCompatActivity {
             for (int i = 0; i < dataArrayList.size(); i++) {
                 db.acceptOrder(dataArrayList.get(i).idDetail,dataArrayList.get(i).idUser,dataArrayList.get(i).idProduct);
             }
+            if (dataArrayList.size()>0){
             Toast.makeText(CartUserActivity.this, "Вы успешно оформили заказ", Toast.LENGTH_SHORT).show();
-            finish();
+            finish();}
+            else Toast.makeText(CartUserActivity.this, "Добавьте товары в корзину", Toast.LENGTH_SHORT).show();
+
         });
         binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

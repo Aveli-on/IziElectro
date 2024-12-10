@@ -29,6 +29,5 @@ public class UserAccountDetailedActivity extends AppCompatActivity {
             binding.detailPhone.setText(data[2]);
             binding.detailRole.setText(data[3]);
         }
-
     }
 }

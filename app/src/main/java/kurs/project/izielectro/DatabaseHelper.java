@@ -127,9 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     void create_db(){
-
         File file = new File(DB_PATH);
-
         if (!file.exists()) {
             Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             myContext.startActivity(intent);
@@ -137,7 +135,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try(InputStream myInput = myContext.getAssets().open(DB_NAME);
                 // Открываем пустую бд
                 OutputStream myOutput = new FileOutputStream(DB_PATH)) {
-
                 // побайтово копируем данные
                 byte[] buffer = new byte[1024];
                 int length;

@@ -48,9 +48,8 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, "Регистрация не удалась", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(SignupActivity.this, "Такой email уже зарегистрирован", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Такой логин уже зарегистрирован", Toast.LENGTH_SHORT).show();
                 }
-
             }
             else{
                 Toast.makeText(SignupActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
