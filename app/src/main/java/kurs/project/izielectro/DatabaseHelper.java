@@ -128,6 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     void create_db(){
         File file = new File(DB_PATH);
+
         if (!file.exists()) {
             Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             myContext.startActivity(intent);
@@ -377,7 +378,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return dataArrayList;
     }
+    public boolean deleteProduct(int idProduct) {
+        create_db();
+        SQLiteDatabase MyDatabase = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        try {
+            MyDatabase.execSQL("DELETE FROM Detail WHERE IdProduct=" + idProduct);
+            MyDatabase.execSQL("DELETE FROM Product WHERE Id=" + idProduct);
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(myContext, e.getMessage(), Toast.LENGTH_SHORT).show();
 
+        }
+        return false;
+    }
 }
 
 

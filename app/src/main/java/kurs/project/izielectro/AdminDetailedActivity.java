@@ -24,6 +24,7 @@ public class AdminDetailedActivity extends AppCompatActivity {
     ActivityAdminDetailedBinding binding;
     int id=0;
     int idCategory=0;
+    int countDel=0;
     String photo="standart";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,19 @@ public class AdminDetailedActivity extends AppCompatActivity {
         }
         if (id==0){
             binding.saveButton.setText("Добавить");
+            binding.deleteButton.setVisibility(View.INVISIBLE);
         }
+        binding.deleteButton.setOnClickListener(view -> {
+            countDel++;
+            if (countDel==1){
+                Toast.makeText(AdminDetailedActivity.this, "Нажмите еще раз для удаления", Toast.LENGTH_SHORT).show();
+            }
+            if (countDel==2) {
+                db.deleteProduct(id);
+                finish();
+            }
+        });
+
         binding.detailPhoto.addTextChangedListener(new TextWatcher(){
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
